@@ -1,0 +1,10 @@
+{
+  "name": "diff-arrays",
+  "version": "1.0.0",
+  "main": "js/diffArrays",
+  "lotus": {
+    "plugins": [
+      "lotus-coffee"
+    ]
+  }
+}
