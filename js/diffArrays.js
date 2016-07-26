@@ -2,28 +2,30 @@ var diffArrays, inArray;
 
 inArray = require("in-array");
 
-diffArrays = function(a, b) {
-  var index, length, value, values;
-  values = [];
+diffArrays = function(oldArray, newArray) {
+  var added, index, length, removed, value;
+  added = [];
+  removed = [];
   index = -1;
-  length = a.length;
+  length = oldArray.length;
   while (++index < length) {
-    value = a[index];
-    if (inArray(b, value)) {
-      continue;
+    value = oldArray[index];
+    if (!inArray(newArray, value)) {
+      removed.push(value);
     }
-    values.push(value);
   }
   index = -1;
-  length = b.length;
+  length = newArray.length;
   while (++index < length) {
-    value = b[index];
-    if (inArray(a, value)) {
-      continue;
+    value = newArray[index];
+    if (!inArray(oldArray, value)) {
+      added.push(value);
     }
-    values.push(value);
   }
-  return values;
+  return {
+    added: added,
+    removed: removed
+  };
 };
 
 module.exports = diffArrays;

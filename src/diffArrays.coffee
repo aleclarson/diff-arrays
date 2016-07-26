@@ -1,24 +1,28 @@
 
 inArray = require "in-array"
 
-diffArrays = (a, b) ->
+diffArrays = (oldArray, newArray) ->
 
-  values = []
-
-  index = -1
-  length = a.length
-  while ++index < length
-    value = a[index]
-    continue if inArray b, value
-    values.push value
+  added = []
+  removed = []
 
   index = -1
-  length = b.length
+  length = oldArray.length
   while ++index < length
-    value = b[index]
-    continue if inArray a, value
-    values.push value
+    value = oldArray[index]
+    if not inArray newArray, value
+      removed.push value
 
-  return values
+  index = -1
+  length = newArray.length
+  while ++index < length
+    value = newArray[index]
+    if not inArray oldArray, value
+      added.push value
+
+  return {
+    added
+    removed
+  }
 
 module.exports = diffArrays
